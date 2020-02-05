@@ -23,12 +23,12 @@ function FormRow(props) {
       <Grid item xs={2}>
         {card}
       </Grid>
-      <Grid item xs={2}>
+      {/* <Grid item xs={2}>
         {card}
       </Grid>
       <Grid item xs={2}>
         {card}
-      </Grid>
+      </Grid> */}
     </React.Fragment>
   );
 }

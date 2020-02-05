@@ -16,22 +16,22 @@ class App extends Component {
     super(props);
     this.state = {
       tab: 0,
-      card: <Planet planet={planetData.results[0]} />
+      card: <Film film={filmsData.results[0]} />
     }
-    console.log("App Constructor");
+    // console.log("App Constructor");
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log("App get derived state", props, state);
+    // console.log("App get derived state", props, state);
     return state;
   }
 
   componentDidMount() {
-    console.log("App did mount");
+    // console.log("App did mount");
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("App should component update", nextProps, nextState);
+    // console.log("App should component update", nextProps, nextState);
 
     if (nextState.tab === 2 && this.state.tab === 1) {
       return false;
@@ -40,12 +40,12 @@ class App extends Component {
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log("App getSnapshotBeforeUpdate", prevProps, prevState);
+    // console.log("App getSnapshotBeforeUpdate", prevProps, prevState);
     return 1;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("App component  did update", prevProps, prevState, snapshot);
+    // console.log("App component  did update", prevProps, prevState, snapshot);
   }
 
 
@@ -65,7 +65,7 @@ class App extends Component {
   }
 
   render() {
-    console.log("App render");
+    // console.log("App render");
     const { tab, card } = this.state;
     return (
       <div className="App" >

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback, memo } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -36,73 +36,101 @@ const useStyles = theme => ({
   },
 });
 
-class RecipeReviewCard extends React.Component {
+let oldRef;
 
-  constructor(props) {
-    super(props);
+function RecipeReviewCard(props) {
 
-    this.state = {
-      expanded: false,
-      isFavorite: false,
-    }
-  }
+  const [headline] = useState(props.headline.toUpperCase());
+  const [expanded, setExpanded] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  handleExpandClick = () => {
-    let { expanded, isFavorite } = this.state;
-    this.setState({ expanded: !expanded });
-  }
+  useEffect(
+    () => {
+      setExpanded(true);
+      return () => {
+        console.log('before unmount');
+      }
+    }, []
+  );
 
-  handleFavoriteIcon = () => {
-    const { isFavorite } = this.state;
-    this.setState({ isFavorite: !isFavorite });
-  }
+  useEffect(
+    () => {
+      console.log('expand change to ', expanded);
+      return () => {
+        console.log('value of expanded before changing: ', expanded);
+      }
+    }, [expanded]
+  );
 
-  render() {
-    const classes = this.props;
+  useEffect(
+    () => {
+      // console.log('after upadte isFavorite');
+    }, [isFavorite]
+  );
 
-    const { title = 'title', headline = 'headline', content = 'content', avatar = 'A' } = this.props;
-    const { expanded, isFavorite } = this.state;
-    return (
-      <Card className={classes.card}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {avatar}
-            </Avatar>
-          }
-          title={title}
-        />
+  const handleExpandClick = useCallback(() => {
+    setExpanded(!expanded);
+  }, [expanded]);
+
+  const handleFavoriteIcon = useCallback(() => {
+    setIsFavorite(!isFavorite);
+  }, [isFavorite]);
+
+  console.log(handleFavoriteIcon === oldRef);
+  oldRef = handleFavoriteIcon;
+
+  const classes = props;
+
+  const { title = 'title',
+    // headline = 'headline',
+    content = 'content', avatar = 'A' } = props;
+  return (
+    <Card className={classes.card}>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            {avatar}
+          </Avatar>
+        }
+        title={title}
+      />
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {headline}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites" onClick={handleFavoriteIcon}>
+          <FavoriteIcon color={`${isFavorite ? 'error' : 'disabled'}`} />
+        </IconButton>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          <Typography paragraph>Details:</Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {headline}
+            {content}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={this.handleFavoriteIcon}>
-            <FavoriteIcon color={`${isFavorite ? 'error' : 'disabled'}`} />
-          </IconButton>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={this.handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Details:</Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {content}
-            </Typography>
-          </CardContent>
-        </Collapse>
-      </Card >
-    );
-  }
+      </Collapse>
+    </Card >
+  );
 }
 
-export default withStyles(useStyles)(RecipeReviewCard);
+const componentWithStyles = withStyles(useStyles)(RecipeReviewCard);
+
+export default memo(componentWithStyles, (prevProps, nextProps) => {
+  console.log("prevProps", prevProps);
+  console.log("nextProps", nextProps);
+  // return false; // component will render
+  return true; // component wont render again
+});
