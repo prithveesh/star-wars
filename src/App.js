@@ -1,22 +1,48 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 import Header from './components/Header';
 import Menu from './components/Menu';
-import Film from './modules/films/components/Film';
-import People from './modules/people/components/People';
-import Planet from './modules/planets/components/Planet';
-import Grid from './components/Grid';
-import filmsData from './modules/films/data/films';
-import peopleData from './modules/people/data/people';
-import planetData from './modules/planets/data/planets';
+import FilmsPage from './modules/films';
+import PeoplePage from './modules/people';
+import PlanetsPage from './modules/planets';
 import './App.css';
+
+const routes = [
+  {
+    path: '/',
+    exact: true,
+    component: () => (
+      <>
+        <FilmsPage />
+        <PlanetsPage />
+        <PeoplePage />
+      </>
+    ),
+  },
+  {
+    path: '/films',
+    exact: true,
+    component: FilmsPage,
+  },
+  {
+    path: '/planets',
+    exact: true,
+    component: PlanetsPage,
+  },
+  {
+    path: '/people',
+    exact: true,
+    component: PeoplePage,
+  }
+]
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      tab: 0,
-      card: <Film film={filmsData.results[0]} />
+      tab: window.location.pathname
     }
     // console.log("App Constructor");
   }
@@ -32,10 +58,6 @@ class App extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     // console.log("App should component update", nextProps, nextState);
-
-    if (nextState.tab === 2 && this.state.tab === 1) {
-      return false;
-    }
     return true;
   }
 
@@ -51,32 +73,63 @@ class App extends Component {
 
 
   tabChanged = (event, value) => {
-    if (value === 0) {
-      this.setState({ tab: value });
-      this.setState({ card: <Film film={filmsData.results[0]} /> });
-
-    } else if (value === 1) {
-      this.setState({ tab: value });
-      this.setState({ card: <Planet planet={planetData.results[0]} /> });
-    } else if (value === 2) {
-      this.setState({ tab: value });
-      this.setState({ card: <People people={peopleData.results[0]} /> });
-    }
+    this.setState({ tab: value });
+    // window.location.href = value; // Do not do this for routing within the app
+    const { location, history } = this.props;
+    history.push(value, {
+      replace: true
+    });
   }
 
   render() {
-    // console.log("App render");
-    const { tab, card } = this.state;
+    const { tab } = this.state;
     return (
       <div className="App" >
         <Header />
         <Menu tabChanged={this.tabChanged} tab={tab} />
-        <Grid
-          card={card}
-        />
+        {/* <Switch>
+          <Route path="/" exact>
+            <Redirect to='/films' />
+          </Route>
+          <Route path="/films">
+            <FilmsPage />
+          </Route>
+          <Route path="/people">
+            <PeoplePage />
+          </Route>
+          <Route path="/planets">
+            <PlanetsPage />
+          </Route>
+        </Switch> */}
+
+        {/* <Switch>
+          <Route path="/" exact>
+            <PlanetsPage />
+            <PeoplePage />
+            <FilmsPage />
+          </Route>
+          <Route path="/films">
+            <FilmsPage />
+          </Route>
+          <Route path="/people">
+            <PeoplePage />
+          </Route>
+          <Route path="/planets">
+            <PlanetsPage />
+          </Route>
+        </Switch> */}
+        {renderRoutes(routes)}
       </div>
     );
   }
 }
 
-export default App;
+/*
+
+/ -> starwars.com
+starwars.com/films
+starwars.com/planets
+
+*/
+
+export default withRouter(App);

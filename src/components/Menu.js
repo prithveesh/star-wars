@@ -1,24 +1,49 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 
-class Menu extends Component {
+function Menu(props) {
 
-  render() {
-    const { tab, tabChanged } = this.props;
-    return (
-      <>
-        <AppBar position="static">
-          <Tabs value={tab} centered onChange={tabChanged} aria-label="simple tabs example">
-            <Tab label="Film" />
-            <Tab label="Planet" />
-            <Tab label="People" />
-          </Tabs>
-        </AppBar>
-      </>
-    )
-  }
+  const { tab, tabChanged } = props;
+  const [currentTab, setTab] = useState(tab);
+  const history = useHistory();
+  const location = useLocation();
+
+  const handleTabChange = useCallback((event, value) => {
+    setTab(value);
+    history.push(value);
+    // tabChanged(event, value);
+  }, []);
+
+  useEffect(() => {
+    console.log("new location: " + location.pathname);
+    return () => {
+      console.log("current location: " + location.pathname);
+    }
+  }, [location]);
+
+  return (
+    <>
+      <AppBar position="static">
+        <Tabs value={currentTab} centered onChange={handleTabChange} aria-label="simple tabs example">
+          {/* <Link to="/films" >
+              <Tab label="Film" />
+            </Link>
+            <Link to="/planets" >
+              <Tab label="Planet" />
+              </Link>
+              <Link to="/people" >
+              <Tab label="People" />
+            </Link> */}
+          <Tab label="Film" value="/films" />
+          <Tab label="Planet" value="/planets" />
+          <Tab label="People" value="/people" />
+        </Tabs>
+      </AppBar>
+    </>
+  )
 }
 
 export default Menu;
