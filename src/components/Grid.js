@@ -33,18 +33,33 @@ function FormRow(props) {
   );
 }
 
+function getGridRow(results) {
+  const totalElems = new Array(Math.ceil(results.length / 3)).fill(null);
+  const ret = (
+    <Grid container spacing={5}>
+      {
+        totalElems.map((elem, index) => (
+          <Grid container item justify="space-around" >
+            {
+              results.slice(index * 3, index * 3 + 3).map(elem => (
+                <FormRow card={elem} />
+              ))
+            }
+          </Grid>
+        ))
+      }
+    </Grid >
+  )
+  return ret;
+}
+
 export default function NestedGrid(props) {
   const classes = useStyles();
 
-  const { card } = props;
-
+  const { results } = props;
   return (
     <div className={classes.root}>
-      <Grid container spacing={5}>
-        <Grid container item justify="space-around">
-          <FormRow card={card} />
-        </Grid>
-      </Grid>
-    </div>
+      {getGridRow(results)}
+    </div >
   );
 }

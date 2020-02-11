@@ -4,6 +4,22 @@ import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 
+const menuList = [
+  {
+    label: 'Films',
+    value: '/films'
+  }, {
+    label: 'Planets',
+    value: '/planets'
+  }, {
+    label: 'People',
+    value: '/people'
+  }, {
+    label: 'Contact Us',
+    value: '/contact-us'
+  }
+]
+
 function Menu(props) {
 
   const { tab, tabChanged } = props;
@@ -37,9 +53,10 @@ function Menu(props) {
               <Link to="/people" >
               <Tab label="People" />
             </Link> */}
-          <Tab label="Film" value="/films" />
+          {/* <Tab label="Film" value="/films" />
           <Tab label="Planet" value="/planets" />
-          <Tab label="People" value="/people" />
+          <Tab label="People" value="/people" /> */}
+          {menuList.map(menuItem => <Tab label={menuItem.label} value={menuItem.value} />)}
         </Tabs>
       </AppBar>
     </>

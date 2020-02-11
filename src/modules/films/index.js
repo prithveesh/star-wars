@@ -6,7 +6,9 @@ import filmsData from './data/films';
 function FilmsPage() {
   return (
     <Grid
-      card={<Film film={filmsData.results[0]} />}
+      results={filmsData.results.map(film => (
+        <Film film={film} />
+      ))}
     />
   )
 }

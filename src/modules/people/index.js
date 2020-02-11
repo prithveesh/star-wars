@@ -6,7 +6,7 @@ import peopleData from './data/people';
 function PeoplePage() {
   return (
     <Grid
-      card={<People people={peopleData.results[0]} />}
+      results={peopleData.results.map(card => <People people={card} />)}
     />
   )
 }
