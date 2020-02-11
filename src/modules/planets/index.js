@@ -6,7 +6,7 @@ import planetsData from './data/planets';
 function PlanetsPage() {
   return (
     <Grid
-      card={<Planet planet={planetsData.results[0]} />}
+      results={planetsData.results.map(card => <Planet planet={card} />)}
     />
   )
 }

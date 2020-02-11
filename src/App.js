@@ -6,6 +6,7 @@ import Menu from './components/Menu';
 import FilmsPage from './modules/films';
 import PeoplePage from './modules/people';
 import PlanetsPage from './modules/planets';
+import ContactUs from './modules/contactUs';
 import './App.css';
 
 const routes = [
@@ -34,16 +35,24 @@ const routes = [
     path: '/people',
     exact: true,
     component: PeoplePage,
+  },
+  {
+    path: '/contact-us',
+    exact: true,
+    component: ContactUs,
   }
 ]
 
 class App extends Component {
+
+  headerElement = React.createRef()
 
   constructor(props) {
     super(props);
     this.state = {
       tab: window.location.pathname
     }
+    console.log("header: ", this.headerElement);
     // console.log("App Constructor");
   }
 
@@ -53,6 +62,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("header: ", this.headerElement);
+    setTimeout(() => {
+      this.headerElement.current.height = 200;
+    }, 2000);
     // console.log("App did mount");
   }
 
@@ -85,7 +98,7 @@ class App extends Component {
     const { tab } = this.state;
     return (
       <div className="App" >
-        <Header />
+        <Header headerRef={this.headerElement} />
         <Menu tabChanged={this.tabChanged} tab={tab} />
         {/* <Switch>
           <Route path="/" exact>
