@@ -52,7 +52,7 @@ class App extends Component {
     this.state = {
       tab: window.location.pathname
     }
-    console.log("header: ", this.headerElement);
+    // console.log("header: ", this.headerElement);
     // console.log("App Constructor");
   }
 
@@ -62,9 +62,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("header: ", this.headerElement);
+    // console.log("header: ", this.headerElement);
     setTimeout(() => {
-      this.headerElement.current.height = 200;
+      this.headerElement.current.height = 100;
     }, 2000);
     // console.log("App did mount");
   }

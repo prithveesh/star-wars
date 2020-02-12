@@ -18,9 +18,9 @@ class Film extends Component {
 
   componentDidMount() {
     // console.log("Film did mount");
-    setTimeout(() => {
-      this.setState({ title: 'A new title' }, () => console.log('title changed'));
-    }, 3000);
+    // setTimeout(() => {
+    //   this.setState({ title: 'A new title' }, () => console.log('title changed'));
+    // }, 3000);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
