@@ -33,12 +33,12 @@ function Menu(props) {
     // tabChanged(event, value);
   }, []);
 
-  useEffect(() => {
-    console.log("new location: " + location.pathname);
-    return () => {
-      console.log("current location: " + location.pathname);
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   console.log("new location: " + location.pathname);
+  //   return () => {
+  //     console.log("current location: " + location.pathname);
+  //   }
+  // }, [location]);
 
   return (
     <>
@@ -56,7 +56,7 @@ function Menu(props) {
           {/* <Tab label="Film" value="/films" />
           <Tab label="Planet" value="/planets" />
           <Tab label="People" value="/people" /> */}
-          {menuList.map(menuItem => <Tab label={menuItem.label} value={menuItem.value} />)}
+          {menuList.map(menuItem => <Tab key={menuItem.value} label={menuItem.label} value={menuItem.value} />)}
         </Tabs>
       </AppBar>
     </>

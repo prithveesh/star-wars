@@ -39,10 +39,10 @@ function getGridRow(results) {
     <Grid container spacing={5}>
       {
         totalElems.map((elem, index) => (
-          <Grid container item justify="space-around" >
+          <Grid container item justify="space-around" key={index.toString()}>
             {
-              results.slice(index * 3, index * 3 + 3).map(elem => (
-                <FormRow card={elem} />
+              results.slice(index * 3, index * 3 + 3).map((elem, childIndex) => (
+                <FormRow card={elem} key={`${index}-${childIndex}`} />
               ))
             }
           </Grid>

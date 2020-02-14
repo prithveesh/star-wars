@@ -48,18 +48,9 @@ function RecipeReviewCard(props) {
     () => {
       setExpanded(true);
       return () => {
-        console.log('before unmount');
+        // console.log('before unmount');
       }
     }, []
-  );
-
-  useEffect(
-    () => {
-      console.log('expand change to ', expanded);
-      return () => {
-        console.log('value of expanded before changing: ', expanded);
-      }
-    }, [expanded]
   );
 
   useEffect(
@@ -76,7 +67,6 @@ function RecipeReviewCard(props) {
     setIsFavorite(!isFavorite);
   }, [isFavorite]);
 
-  console.log(handleFavoriteIcon === oldRef);
   oldRef = handleFavoriteIcon;
 
   const classes = props;
@@ -129,8 +119,8 @@ function RecipeReviewCard(props) {
 const componentWithStyles = withStyles(useStyles)(RecipeReviewCard);
 
 export default memo(componentWithStyles, (prevProps, nextProps) => {
-  console.log("prevProps", prevProps);
-  console.log("nextProps", nextProps);
+  // console.log("prevProps", prevProps);
+  // console.log("nextProps", nextProps);
   // return false; // component will render
   return true; // component wont render again
 });
