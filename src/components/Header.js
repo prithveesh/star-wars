@@ -7,6 +7,7 @@ function Header(props) {
   return (
     <Box>
       <img ref={headerRef} src={Logo} height="100" alt="Star Wars" />
+      <input />
     </Box>
   )
 }

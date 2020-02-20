@@ -6,8 +6,8 @@ import Menu from './components/Menu';
 import FilmsPage from './modules/films';
 import PeoplePage from './modules/people';
 import PlanetsPage from './modules/planets';
-import ContactUs from './modules/contactUs';
 import './App.css';
+import ContactUs from './modules/contactUs';
 
 const routes = [
   {
