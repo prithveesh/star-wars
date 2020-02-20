@@ -1,15 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-// import './styles.css';
+import './styles.css';
 
-const Form = styled.form`
-  input, button {
-    width: 300px;
-    height: 30px;
-    margin-top: 50px;
-    font-size: 15px;
-  }
+const Button = styled.button`
+  width: 300px;
+  height: 30px;
+  margin-top: 50px;
+  font-size: 15px;
 `;
 
 export default function () {
@@ -32,16 +30,26 @@ export default function () {
 
   return (
     <div>
-      <Form onSubmit={onSubmit}>
+      <form
+        className="form"
+        onSubmit={onSubmit}>
         <input
           ref={inputValue}
           value={value}
           onChange={onChange} />
-        <button
+        <Button
           type="submit">
           Submit
-          </button>
-      </Form>
+          </Button>
+      </form>
+      <style jsx>{`
+        input {
+          width: 300px;
+          height: 30px;
+          margin-top: 50px;
+          font-size: 15px;
+        }
+      `}</style>
     </div>
   )
 }

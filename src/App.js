@@ -6,7 +6,7 @@ import Menu from './components/Menu';
 import FilmsPage from './modules/films';
 import PeoplePage from './modules/people';
 import PlanetsPage from './modules/planets';
-import './App.css';
+import './App.scss';
 import ContactUs from './modules/contactUs';
 
 const routes = [
@@ -97,7 +97,7 @@ class App extends Component {
   render() {
     const { tab } = this.state;
     return (
-      <div className="App" >
+      <div className='App' >
         <Header headerRef={this.headerElement} />
         <Menu tabChanged={this.tabChanged} tab={tab} />
         {/* <Switch>
