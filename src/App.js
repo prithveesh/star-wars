@@ -100,6 +100,7 @@ class App extends Component {
       <div className='App' >
         <Header headerRef={this.headerElement} />
         <Menu tabChanged={this.tabChanged} tab={tab} />
+        {renderRoutes(routes)}
         {/* <Switch>
           <Route path="/" exact>
             <Redirect to='/films' />
@@ -131,7 +132,6 @@ class App extends Component {
             <PlanetsPage />
           </Route>
         </Switch> */}
-        {renderRoutes(routes)}
       </div>
     );
   }

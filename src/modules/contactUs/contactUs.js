@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import useMouse from '../../hoc/useMouse';
 
 import './styles.css';
 
@@ -10,7 +11,7 @@ const Button = styled.button`
   font-size: 15px;
 `;
 
-export default function () {
+function ContactUs(props) {
   const [value, setValue] = useState(null);
   const inputValue = useRef();
 
@@ -28,8 +29,11 @@ export default function () {
     console.log(inputValue.current.value);
   }
 
+  const { cordinates } = props;
+
   return (
     <div>
+      <p>Mouse position is X: {cordinates.x} Y: {cordinates.y}</p>
       <form
         className="form"
         onSubmit={onSubmit}>
@@ -53,3 +57,5 @@ export default function () {
     </div>
   )
 }
+
+export default useMouse(ContactUs);
