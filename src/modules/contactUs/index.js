@@ -1,37 +1,27 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
+import Loadable from '../../hoc/loaderHoc';
 
-export default function () {
-  const [value, setValue] = useState(null);
-  const inputValue = useRef();
+// export default function ContactUs() {
+//   const [comp, setComp] = useState(null);
 
-  useEffect(() => {
-    inputValue.current.value = 'Default Value';
-  }, []);
+//   useEffect(() => {
+//     const Component = lazy(() => import('./contactUs'));
+//     setComp(
+//       <Suspense fallback={null}>
+//         <Component />
+//       </Suspense>
+//     );
 
-  const onChange = (event) => {
-    // const newValue = event.target.value;
-    // setValue(newValue.toUpperCase());
-  }
+//   }, [])
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    console.log(inputValue.current.value);
-  }
+//   return (
+//     <div>
+//       {comp}
+//     </div>
+//   )
+// }
 
-  return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input
-          ref={inputValue}
-          style={{ width: "300px", height: "30px", marginTop: "50px", fontSize: "15px" }}
-          value={value}
-          onChange={onChange} />
-        <button
-          style={{ width: "300px", height: "30px", marginTop: "50px", fontSize: "15px" }}
-          type="submit">
-          Submit
-          </button>
-      </form>
-    </div>
-  )
-}
+export default Loadable({
+  component: () => import('./contactUs'),
+  Loader: () => <div>Loading Contact Us Page</div>
+});

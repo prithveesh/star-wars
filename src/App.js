@@ -6,8 +6,8 @@ import Menu from './components/Menu';
 import FilmsPage from './modules/films';
 import PeoplePage from './modules/people';
 import PlanetsPage from './modules/planets';
+import './App.scss';
 import ContactUs from './modules/contactUs';
-import './App.css';
 
 const routes = [
   {
@@ -97,9 +97,10 @@ class App extends Component {
   render() {
     const { tab } = this.state;
     return (
-      <div className="App" >
+      <div className='App' >
         <Header headerRef={this.headerElement} />
         <Menu tabChanged={this.tabChanged} tab={tab} />
+        {renderRoutes(routes)}
         {/* <Switch>
           <Route path="/" exact>
             <Redirect to='/films' />
@@ -131,7 +132,6 @@ class App extends Component {
             <PlanetsPage />
           </Route>
         </Switch> */}
-        {renderRoutes(routes)}
       </div>
     );
   }
